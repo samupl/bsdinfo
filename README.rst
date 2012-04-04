@@ -20,5 +20,6 @@ You will need to have root permissions, to run `make install`, as it requires wr
 Screenshot
 ----------
 
-.. image:: https://github.com/samaelszafran/bsdinfo/raw/master/screenshot.png
-   :align: middle
+You can see a screenshot in the repository. I don't know how to attach it on github README, so if you wan't to view it, simply visit the link below.
+
+https://github.com/samaelszafran/bsdinfo/raw/master/screenshot.png
