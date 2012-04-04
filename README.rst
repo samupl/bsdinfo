@@ -12,6 +12,7 @@ Installation
 To install the script, simply run
 
 	make
+
 	make install
 
 
