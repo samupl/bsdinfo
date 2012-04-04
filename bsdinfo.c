@@ -116,15 +116,18 @@ int printmem()
     size_ram_pagesize = sizeof(ram_pagesize);
     sysctlbyname("hw.pagesize", &ram_pagesize, &size_ram_pagesize, NULL, 0);
     ram_free = ram_free*ram_pagesize;
-    
     ram_free = ram_free/1024/1024;
-    printf("%dM / ", ram_free);
+    
         
     long int ram_size = 0;
     size_t size_ram_size;
     size_ram_size = sizeof(ram_size);
     sysctlbyname("hw.physmem", &ram_size, &size_ram_size, NULL, 0);
     ram_size = ram_size/1024/1024;
+
+    ram_free = ram_size - ram_free;
+    
+    printf("%dM / ", ram_free);
     printf("%dM", ram_size);
     
     return (0);
