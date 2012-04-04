@@ -20,5 +20,5 @@ You will need to have root permissions, to run `make install`, as it requires wr
 Screenshot
 ----------
 
-.. image:: screenshot.png
+.. image:: https://github.com/samaelszafran/bsdinfo/raw/master/screenshot.png
    :align: middle
