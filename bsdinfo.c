@@ -36,6 +36,7 @@
 #include <time.h>
 #include <sys/proc.h>
 #include <kvm.h>
+#include <vm/vm_param.h>
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -104,21 +105,28 @@ int printuptime()
 int printmem()
 {
     printf("\033[1;31mRAM:\033[0;0m ");
-    unsigned long int ram_size;
-    size_t len_size = sizeof(ram_size);
-    sysctlbyname("hw.physmem", &ram_size, &len_size, NULL, 0);
+
+    long int ram_free = 0;
+    size_t size_ram_free;
+    size_ram_free = sizeof(ram_free);
+    sysctlbyname("vm.stats.vm.v_free_count", &ram_free, &size_ram_free, NULL, 0);
+
+    long int ram_pagesize = 0;
+    size_t size_ram_pagesize;
+    size_ram_pagesize = sizeof(ram_pagesize);
+    sysctlbyname("hw.pagesize", &ram_pagesize, &size_ram_pagesize, NULL, 0);
+    ram_free = ram_free*ram_pagesize;
     
-    unsigned long int ram_usage;
-    size_t len_usage = sizeof(ram_usage);
-    sysctlbyname("vm.stats.vm.v_free_count", &ram_usage, &len_usage, NULL, 0);
-
-    unsigned long int ram_pagesize;
-    size_t len_pagesize = sizeof(ram_pagesize);
-    sysctlbyname("vm.stats.vm.v_page_size", &ram_pagesize, &len_pagesize, NULL, 0);
-
-    ram_usage = (ram_size - (ram_usage*ram_pagesize)) / 1048576;
-    ram_size = ram_size / 1048576;
-    printf("%dM / %dM", ram_usage, ram_size);
+    ram_free = ram_free/1024/1024;
+    printf("%dM / ", ram_free);
+        
+    long int ram_size = 0;
+    size_t size_ram_size;
+    size_ram_size = sizeof(ram_size);
+    sysctlbyname("hw.physmem", &ram_size, &size_ram_size, NULL, 0);
+    ram_size = ram_size/1024/1024;
+    printf("%dM", ram_size);
+    
     return (0);
     
 }
@@ -158,6 +166,5 @@ int main()
     printf("\033[1;31m      .--             `--.\033[0;0m           \n");
     printf("\033[1;31m         .---.....----.\033[0;0m              \n");
     printf("\n");
-
     return (0);
 }
