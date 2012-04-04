@@ -37,19 +37,8 @@
 #include <sys/proc.h>
 #include <kvm.h>
 #include <vm/vm_param.h>
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <pwd.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/time.h>
-#include <sys/resource.h>
-#include <sys/proc.h>
+#include <string.h>
 #include <sys/user.h>
-#include <sys/sysctl.h>
-#include <kvm.h>
-#include <ufs/ufs/quota.h>
 
 #define O_RDONLY 0x0000
 #define _POSIX2_LINE_MAX 2048
@@ -100,6 +89,22 @@ int printuptime()
         else 
             (void)printf("00:00");
     }
+}
+
+int printshell()
+{
+    char* shell = getenv("SHELL");
+    if (shell != NULL) {
+        int slen = strlen(shell);
+        for (slen; slen > 0; --slen) if (shell[slen] == '/') break;
+        slen = slen+1;
+        while(shell[slen] != '\0') {
+            printf("%c", shell[slen]);
+            ++slen;
+        }
+        if (slen == 1) printf("%s", shell);
+    }
+    return (0);
 }
 
 int printmem()
@@ -161,7 +166,7 @@ int main()
     printf("\033[1;31m  .-                  ::/sy+:.\033[0;0m       "); printf("\033[1;31mProcesses:\033[0;0m %d\n", proc_count);
     printf("\033[1;31m  /                     `--  /\033[0;0m       "); printmem(); printf("\n");
     printf("\033[1;31m `:                          :`\033[0;0m      "); printval("CPU", "hw.model");  printf("\n");
-    printf("\033[1;31m `:                          :`\033[0;0m      \n");
+    printf("\033[1;31m `:                          :`\033[0;0m      "); printf("\033[1;31mShell:\033[0;0m ", proc_count); printshell(); printf("\n");
     printf("\033[1;31m  /                          /\033[0;0m       \n");
     printf("\033[1;31m  .-                        -.\033[0;0m       \n");
     printf("\033[1;31m   --                      -.\033[0;0m        \n");

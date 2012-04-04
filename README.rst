@@ -16,3 +16,9 @@ To install the script, simply run
 
 
 You will need to have root permissions, to run `make install`, as it requires write access to /usr/local/bin. The binary will be installed at /usr/local/bin/bsdinfo.
+
+Screenshot
+----------
+
+.. image:: screenshot.png
+   :align: middle
