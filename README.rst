@@ -13,6 +13,12 @@ To install the script, simply run
 
 	make
 
+To build xterm-256 color version, type:
+
+        make xterm-256
+
+To install the binary:
+
 	make install
 
 
@@ -24,3 +30,7 @@ Screenshot
 You can see a screenshot in the repository. I don't know how to attach it on github README, so if you wan't to view it, simply visit the link below.
 
 https://github.com/samaelszafran/bsdinfo/raw/master/screenshot.png
+
+And the xterm-256 version:
+
+https://github.com/samaelszafran/bsdinfo/raw/master/screenshot256.png
