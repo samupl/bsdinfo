@@ -24,6 +24,8 @@ To install the binary:
 
 You will need to have root permissions, to run `make install`, as it requires write access to /usr/local/bin. The binary will be installed at /usr/local/bin/bsdinfo.
 
+Please remember, that you should have the TERM environment variable set to 'xterm-256color', and you should have a 256-color capable terminal emulator to run the 256 color version, which is also a bit wider than the standard version.
+
 Screenshot
 ----------
 
