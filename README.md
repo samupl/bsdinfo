@@ -9,13 +9,13 @@
 <p>To install the script, simply run:</p>
 
 <pre>
-	make
+    make
 </pre>
 
 <p>To build xterm-256 color version, type:</p>
 
 <pre>
-        make xterm-256
+    make xterm-256
 </pre>
 
 <p>To install the binary:</p>
