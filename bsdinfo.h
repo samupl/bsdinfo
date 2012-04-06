@@ -24,7 +24,22 @@
  *  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  *  SUCH DAMAGE.
  */
- 
+
+#include <sys/types.h>
+#include <sys/sysctl.h>
+
+#include <err.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/timespec.h>
+#include <time.h>
+#include <sys/proc.h>
+#include <kvm.h>
+#include <vm/vm_param.h>
+#include <string.h>
+#include <sys/user.h>
+
 #define O_RDONLY 0x0000
 #define _POSIX2_LINE_MAX 2048
 #define _PATH_DEVNULL "/dev/null"
@@ -71,9 +86,9 @@ int printuptime()
         if (hrs > 0 && mins > 0)
             (void)printf("%d:%02d", hrs, mins);
         else if (hrs == 0 && mins > 0) 
-            (void)printf("00:%02d", hrs, mins);
+            (void)printf("0:%02d", mins);
         else 
-            (void)printf("00:00");
+            (void)printf("0:00");
     }
 }
 
