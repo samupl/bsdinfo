@@ -25,21 +25,6 @@
  *  SUCH DAMAGE.
  */
 
-#include <sys/types.h>
-#include <sys/sysctl.h>
-
-#include <err.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/timespec.h>
-#include <time.h>
-#include <sys/proc.h>
-#include <kvm.h>
-#include <vm/vm_param.h>
-#include <string.h>
-#include <sys/user.h>
-
 #define O_RDONLY 0x0000
 #define _POSIX2_LINE_MAX 2048
 #define _PATH_DEVNULL "/dev/null"
