@@ -1,0 +1,49 @@
+#!/bin/sh
+
+genMakefile() {
+	echo -e "$1" >> Makefile;
+}
+
+_prefix=/usr/local;
+_binsrc='bsdinfo.c';
+_cc='gcc';
+for opt in "$@"; do
+	baseopt=$(echo "$opt" |sed -e 's/=/ /');
+	optname=$(echo "$baseopt" |awk '{print $1}');
+	optval=$(echo "$baseopt" |awk '{print $2}');
+	case "$optname" in
+		--prefix)
+			_prefix="$optval";
+			;;
+
+		--x256)
+			_binsrc='bsdinfo-xterm-256.c';
+			;;
+	esac
+done
+
+# Remove trailing slash from the prefix (it will be added later)
+_prefix=$(echo "$_prefix" |sed -e 's/\/$//');
+
+# Clear the makefile
+echo -n '' > Makefile;
+
+genMakefile 'INSTALL=\tinstall';
+genMakefile 'INSTALL_EXEC=\t$(INSTALL) -m 0755';
+if [ "$CC" != "" ]; then
+    _cc="$CC";
+fi
+genMakefile 'CC=\t'"$_cc";
+genMakefile '';
+genMakefile 'target all:';
+genMakefile '\t${CC} -lkvm -lc ${CFLAGS} '"$_binsrc"' -o bsdinfo';
+genMakefile '';
+genMakefile 'install:';
+genMakefile '\t${INSTALL_EXEC} bsdinfo '"$_prefix"'/bin/bsdinfo';
+genMakefile '';
+genMakefile 'deinstall:';
+genMakefile '\trm /usr/local/bin/bsdinfo';
+genMakefile '';
+genMakefile 'clean:';
+genMakefile '\trm -rf bsdinfo';
+
