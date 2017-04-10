@@ -151,3 +151,16 @@ int printcpu()
     printrmws(buf);
     return (0);
 }
+
+int printbootmethod()
+{
+    printf("\033[1;31mBootmethod:\033[0;0m ");
+    char buf[256];
+    size_t size = sizeof(buf);
+
+    if (sysctlbyname("machdep.bootmethod", &buf, &size, NULL, 0) != 0) {
+        return (1);
+    }
+    printrmws(buf);
+    return (0);
+}
